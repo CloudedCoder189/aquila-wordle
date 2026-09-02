@@ -17,8 +17,18 @@ button { font: inherit; }
 .game-shell { min-height: 100vh; display: flex; flex-direction: column; background: var(--background); }
 .game-shell.embed .masthead, .game-shell.embed .site-footer { display: none; }
 .game-shell.embed { min-height: 0; background: transparent; }
-.game-shell.embed .game-area { padding-top: 14px; padding-bottom: 12px; }
-.embed-page { min-height: 0; background: transparent; }
+.game-shell.embed .game-area { width: min(100%, 520px); padding: 8px 14px 6px; }
+.game-shell.embed .title-block { margin-bottom: 10px; }
+.game-shell.embed .edition-label { margin-bottom: 4px; }
+.game-shell.embed .title-block h1 { font-size: clamp(2rem, 6vw, 2.45rem); }
+.game-shell.embed .title-block > p:last-child { margin-top: 4px; }
+.game-shell.embed .board { width: min(68vw, 260px); gap: 4px; }
+.game-shell.embed .board-row { gap: 4px; }
+.game-shell.embed .keyboard { width: min(100%, 420px); margin-top: 16px; gap: 5px; }
+.game-shell.embed .keyboard-row { gap: 5px; }
+.game-shell.embed .key { height: 43px; }
+.game-shell.embed .view-result { margin-top: 8px; padding-block: 5px; }
+.embed-page { min-height: 0; overflow: hidden; background: transparent !important; }
 .masthead { width: 100%; border-top: 5px solid var(--primary); border-bottom: 1px solid var(--border); background: rgb(255 255 255 / 0.94); backdrop-filter: blur(10px); }
 .masthead-inner { width: min(100%, 1080px); min-height: 64px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
 .brand-lockup { display: flex; align-items: center; gap: 14px; }
