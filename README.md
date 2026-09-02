@@ -1,13 +1,11 @@
 # Aquila Wordle
 
-A weekly five-letter word game for The Aquila and the UPA community.
+A daily five-letter word game for The Aquila and the UPA community.
 
-## Update the puzzles
+## Daily schedule
 
-Open `game.js` and add a dated five-letter answer to the `puzzles` list. The newest puzzle whose date has arrived is selected automatically.
+The game includes one answer per day for 300 days beginning September 2, 2026. The puzzle changes automatically according to the player's local date and saves one completed result per browser.
 
-```js
-{ number: 6, starts: "2026-10-07", answer: "EAGLE" }
-```
+To extend the schedule, add more uppercase five-letter words to the `answers` string in `game.js`.
 
 Add `?embed=1` to the page address when embedding the game in the SNO website. This hides the duplicate game masthead and footer.
