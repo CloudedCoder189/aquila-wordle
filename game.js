@@ -42,7 +42,11 @@ const helpDialog = document.querySelector("#help-dialog")
 const resultDialog = document.querySelector("#result-dialog")
 const viewResult = document.querySelector("#view-result")
 
-if (new URLSearchParams(location.search).get("embed") === "1") shell.classList.add("embed")
+if (new URLSearchParams(location.search).get("embed") === "1") {
+  shell.classList.add("embed")
+  document.documentElement.classList.add("embed-page")
+  document.body.classList.add("embed-page")
+}
 
 document.querySelector("#puzzle-number").textContent = `#${puzzle.number}`
 document.querySelector("#footer-puzzle").textContent = `Puzzle #${puzzle.number}`
