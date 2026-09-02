@@ -1,21 +1,13 @@
-const puzzles = [
-  { number: 1, starts: "2026-09-02", answer: "PRESS" },
-  { number: 2, starts: "2026-09-09", answer: "STORY" },
-  { number: 3, starts: "2026-09-16", answer: "WRITE" },
-  { number: 4, starts: "2026-09-23", answer: "MEDIA" },
-  { number: 5, starts: "2026-09-30", answer: "QUOTE" }
-]
+const answers = "PRESS STORY WRITE MEDIA QUOTE DEBUG SOUND AGILE STEEL FORCE BLUNT CIVIC EXCEL TREND BLADE BLAME AUDIO POUND COULD CABIN ADMIT TODAY VISIT WHICH BASIC WOULD AWAIT DRAFT ELECT CHALK CREAM ERROR BUILD SIGHT QUIET ENJOY SHIRT ORDER SHARP KNOWN WASTE RANGE CATER LUCKY ANGRY SPORT CLICK PRIZE FEAST ESSAY HONEY WRONG FLASH CLONE PHONE EATEN EMBED CHILD LARGE CRUSH ROUND ABOUT EMAIL OCEAN BRIEF FAULT CARRY MOTOR ROYAL DANCE BOOST BRINK CHEER LOCAL CREEK PRIDE GIANT AMONG CLIMB BLAST ARMOR CURVE CRAZE IMAGE TOWER FULLY ELITE AMEND CHAOS BADGE CLASS TOUGH TOPIC NOISE TRUTH FOCUS CHIME MATCH NIGHT BOOTH NEVER ALIKE CHASE MUSIC CLOCK ANKLE YOUTH POWER ROUGH STILL ELBOW FROST ISSUE CLEAR BRICK OTHER CATCH SENSE CLAIM EVENT BRAVE INPUT ENACT PLAIN EAGLE FINAL GUARD DIARY DROWN NURSE CROSS CANAL FRONT BLANK ASIDE METAL GLASS FETCH STAGE DWELL ARISE STAFF DELAY BURST FIELD CRAVE DOZEN BLAND MOUSE HUMAN DRIVE BLOWN SPEND BROOK CEASE WORRY PAPER BUYER BEACH FIERY ROUTE ARROW BELOW HAPPY ALTER ALLOW SPEAK THEME CRATE SCENE AMBER CHIEF BEARD SHOWN BEGAN PHOTO TREAT DITCH TOTAL BERRY BASIN COMIC PROUD ANGLE GRACE DAILY FAITH BEAST MODEL ATONE SHOCK NORTH FLOOR ANNOY GUIDE WHERE SHORT CHEEK BRIDE CRAFT THERE RAISE ARRAY BATHE TABLE DRIED BOAST TRIAL PLACE DUSTY FLAME APPLY IDEAL BRAKE AGENT AMAZE SHARE HEAVY DRIFT FLOAT AFTER PLANT CACHE DEPTH SHIFT BLINK READY COACH AUDIT FLESH SUGAR GRAND POINT BLEND RIGHT THANK TRADE FRUIT PIECE FAVOR CHART EQUAL YOUNG COURT FAINT PROVE STORE HOUSE FLEET MAJOR GIVEN DELTA STEAM CHECK WATCH BLOOD ALIVE WHOLE DAISY APART EVERY QUICK DRAWN CANOE CRISP BATCH AHEAD CRAZY SPACE CHOIR SCALE MONTH HEART TRAIN WATER BAKER DEALT CRAWL DECOR BRAND ADAPT CYCLE ALBUM GROUP CHAIR DOUGH EARLY DOUBT MIGHT RIVER ALONG BRACE CARGO DROVE DOING AMPLE BROKE GUESS MOUNT VIDEO".split(" ")
 
 const rows = 6
 const columns = 5
 const keyboardRows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"]
 const today = new Date()
-const localDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-const availablePuzzles = puzzles.filter(({ starts }) => {
-  const [year, month, day] = starts.split("-").map(Number)
-  return new Date(year, month - 1, day) <= localDate
-})
-const puzzle = availablePuzzles.at(-1) || puzzles[0]
+const launchDay = Date.UTC(2026, 8, 2)
+const currentDay = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+const dayIndex = Math.max(0, Math.floor((currentDay - launchDay) / 86400000))
+const puzzle = { number: dayIndex + 1, answer: answers[dayIndex % answers.length] }
 const answer = puzzle.answer.toUpperCase()
 const storageKey = `aquila-wordle-${puzzle.number}`
 const statePriority = { empty: 0, absent: 1, present: 2, correct: 3 }
@@ -184,7 +176,7 @@ function openResult() {
   document.querySelector("#result-title").textContent = game.won ? "Nicely reported." : "That was a tough one."
   document.querySelector("#result-description").innerHTML = game.won
     ? `You found it in ${game.guesses.length} ${game.guesses.length === 1 ? "guess" : "guesses"}.`
-    : `This week's word was <strong>${answer}</strong>.`
+    : `Today's word was <strong>${answer}</strong>.`
   const miniGrid = document.querySelector("#mini-grid")
   miniGrid.innerHTML = ""
   game.guesses.forEach((guess) => {
@@ -219,13 +211,6 @@ async function shareResults() {
   }
 }
 
-function resetGame() {
-  localStorage.removeItem(storageKey)
-  game = { guesses: [], current: "", finished: false, won: false }
-  resultDialog.close()
-  render()
-}
-
 function render() {
   renderBoard()
   renderKeyboard()
@@ -243,7 +228,6 @@ document.addEventListener("keydown", (event) => {
 document.querySelector("#help-button").addEventListener("click", () => helpDialog.showModal())
 document.querySelectorAll(".modal-close").forEach((button) => button.addEventListener("click", () => button.closest("dialog").close()))
 document.querySelector("#share-button").addEventListener("click", shareResults)
-document.querySelector("#reset-button").addEventListener("click", resetGame)
 viewResult.addEventListener("click", openResult)
 
 render()
