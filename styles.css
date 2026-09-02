@@ -30,6 +30,9 @@ button { font: inherit; }
 .game-shell.embed .keyboard-row { gap: 6px; }
 .game-shell.embed .keyboard-row:nth-child(2) { width: 92%; }
 .game-shell.embed .key { height: 50px; border-radius: 4px; background: #d3d6da; box-shadow: none; font-size: 0.86rem; font-weight: 700; }
+.game-shell.embed .key.correct { background: var(--correct); color: #fff; }
+.game-shell.embed .key.present { background: var(--present); color: #fff; }
+.game-shell.embed .key.absent { background: var(--absent); color: #fff; }
 .game-shell.embed .key-wide { font-size: 0.68rem; }
 .game-shell.embed .view-result { margin-top: 5px; padding-block: 4px; }
 .embed-page { min-height: 0; overflow: hidden; background: transparent !important; }
